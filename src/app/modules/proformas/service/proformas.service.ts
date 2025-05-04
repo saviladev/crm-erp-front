@@ -143,4 +143,17 @@ export class ProformasService {
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
+
+  estimateProformaStatus(data: any) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + this.authservice.token,
+      'Content-Type': 'application/json'
+    });
+    
+    let URL = URL_SERVICIOS + "/proformas/status";
+    return this.http.post(URL, { data }, { headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
 }

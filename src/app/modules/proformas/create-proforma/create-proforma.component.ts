@@ -87,6 +87,7 @@ export class CreateProformaComponent {
   is_gift:number = 1;
   TODAY:string = 'Y/m/d';
   eval_disponibilidad:boolean = true;
+  estimationResult: any = null;
 
   source: any;
   @ViewChild("discount") something:ElementRef; 
@@ -657,5 +658,42 @@ export class CreateProformaComponent {
       console.log(err);
       this.toast.error("Validación","Hubo un error en el servidor, intente nuevamente o acceda a la consola y vea que sucede");
     })
+  }
+
+  estimateProformaStatus() {
+    if(!this.CLIENT_SELECTED || this.DETAIL_PROFORMAS.length === 0) {
+      this.toast.error("Validación", "Necesitas seleccionar un cliente y agregar productos para estimar el estado");
+      return;
+    }
+
+    const data = [{
+      deuda: this.DEBT_PROFORMA,
+      pagado: this.PAID_OUT_PROFORMA,
+      subtotal: this.TOTAL_PROFORMA,
+      igv: this.TOTAL_IMPUESTO_PROFORMA,
+      total: this.TOTAL_PROFORMA,
+      tipo_cliente: this.CLIENT_SELECTED.client_segment.id
+    }];
+
+    /*const data = [{
+      deuda: 1200,
+      pagado: 800,
+      subtotal: 1500,
+      igv: 0.18,
+      total: 1000,
+      tipo_cliente: 1
+    }];
+    */
+
+    this.proformaService.estimateProformaStatus(data).subscribe(
+      (resp: any) => {
+        this.estimationResult = resp;
+        this.toast.success("Éxito", "Estado de la proforma estimado correctamente");
+      },
+      (error) => {
+        this.toast.error("Error", "No se pudo estimar el estado de la proforma");
+        console.error(error);
+      }
+    );
   }
 } 

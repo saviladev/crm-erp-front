@@ -524,6 +524,31 @@
                         </div>
                         <!--end::Button-->
                     </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <button class="btn btn-primary" (click)="estimateProformaStatus()">
+                          <i class="fas fa-chart-line"></i> Estimar Estado
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="row mt-3" *ngIf="estimationResult">
+                      <div class="col-md-12">
+                        <div class="card">
+                          <div class="card-header">
+                            <h5 class="card-title">Resultado de la Estimación</h5>
+                          </div>
+                          <div class="card-body">
+                            <div *ngIf="estimationResult[1] === '1'" class="alert alert-info">
+                              <i class="fas fa-info-circle"></i> La proforma será cotización
+                            </div>
+                            <div *ngIf="estimationResult[1] === '2'" class="alert alert-success">
+                              <i class="fas fa-file-contract"></i> La proforma será contrato
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                 </div>
                 <!--end::Main column-->
             </form>
