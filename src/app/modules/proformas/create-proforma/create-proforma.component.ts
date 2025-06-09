@@ -667,12 +667,15 @@ export class CreateProformaComponent {
     }
 
     const data = [{
+      tipo_cliente: this.CLIENT_SELECTED.client_segment.id,
+      sucursal_id: this.sucursale_deliverie_id,
       deuda: this.DEBT_PROFORMA,
       pagado: this.PAID_OUT_PROFORMA,
       subtotal: this.TOTAL_PROFORMA,
+      descuento: this.amount_discount,
       igv: this.TOTAL_IMPUESTO_PROFORMA,
       total: this.TOTAL_PROFORMA,
-      tipo_cliente: this.CLIENT_SELECTED.client_segment.id
+      estado_pago: 0
     }];
 
     /*const data = [{
