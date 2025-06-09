@@ -668,7 +668,7 @@ export class CreateProformaComponent {
 
     const data = [{
       tipo_cliente: this.CLIENT_SELECTED.client_segment.id,
-      sucursal_id: this.sucursale_deliverie_id,
+      sucursal_id: this.user.sucursale_id,
       deuda: this.DEBT_PROFORMA,
       pagado: this.PAID_OUT_PROFORMA,
       subtotal: this.TOTAL_PROFORMA,
@@ -677,16 +677,6 @@ export class CreateProformaComponent {
       total: this.TOTAL_PROFORMA,
       estado_pago: 0
     }];
-
-    /*const data = [{
-      deuda: 1200,
-      pagado: 800,
-      subtotal: 1500,
-      igv: 0.18,
-      total: 1000,
-      tipo_cliente: 1
-    }];
-    */
 
     this.proformaService.estimateProformaStatus(data).subscribe(
       (resp: any) => {

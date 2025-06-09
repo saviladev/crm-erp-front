@@ -151,7 +151,7 @@ export class ProformasService {
       'Content-Type': 'application/json'
     });
     
-    let URL = URL_SERVICIOS + "/proformas/status";
+    let URL = URL_SERVICIOS + "/proformas/status-aws";
     return this.http.post(URL, { data }, { headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
