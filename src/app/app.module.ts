@@ -23,7 +23,13 @@ function appInitializer(authService: AuthService) {
   return () => {
     return new Promise((resolve) => {
       //@ts-ignore
-      authService.getUserByToken().subscribe().add(resolve);
+      authService.getUserByToken().subscribe({
+        next: () => resolve(true),
+        error: (error) => {
+          console.error('App initialization error:', error);
+          resolve(true); // Resolve anyway to allow app to continue
+        }
+      });
     });
   };
 }

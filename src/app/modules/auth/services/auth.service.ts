@@ -76,6 +76,8 @@ export class AuthService implements OnDestroy {
   getUserByToken(): Observable<any> {
     const auth = this.getAuthFromLocalStorage();
     if (!auth) {
+      // If no auth data, redirect to login
+      this.router.navigate(['/auth/login']);
       return of(undefined);
     }
 
@@ -88,6 +90,11 @@ export class AuthService implements OnDestroy {
           this.logout();
         }
         return user;
+      }),
+      catchError((error) => {
+        console.error('Error getting user by token:', error);
+        this.logout();
+        return of(undefined);
       }),
       finalize(() => this.isLoadingSubject.next(false))
     );
